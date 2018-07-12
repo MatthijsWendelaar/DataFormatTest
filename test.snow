@@ -1,0 +1,17 @@
+{
+    "simpleKey": "Value!",
+    "simpleArray": [
+        {
+            "name": "Name1",
+            "age": 17,
+            "adult": false
+        },
+        {
+            "name": "Name2",
+            "age": 21,
+            "adult": true
+        }
+    ],
+    "boolean": true,
+    "null": null
+}
