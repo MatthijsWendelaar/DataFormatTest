@@ -20,6 +20,11 @@ public class JSnowObject extends JSnowGroup {
         return nodes.get(key);
     }
 
+    public String getString(String key) {
+        Object value = get(key);
+        return value instanceof String ? (String) value : value.toString();
+    }
+
     public Boolean getBoolean(String key) {
         Object value = get(key);
         return value instanceof Boolean ? (Boolean) value : false;

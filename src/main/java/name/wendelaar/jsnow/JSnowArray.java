@@ -30,6 +30,11 @@ public class JSnowArray extends JSnowGroup {
         return objects.get(index);
     }
 
+    public String getString(int index) {
+        Object value = get(index);
+        return value instanceof String ? (String) value : value.toString();
+    }
+
     public JSnowObject getSection(int index) {
         Object value = get(index);
         return value instanceof JSnowObject ? (JSnowObject) value : null;
