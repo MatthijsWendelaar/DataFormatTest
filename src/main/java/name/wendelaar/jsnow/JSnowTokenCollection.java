@@ -12,7 +12,7 @@ public class JSnowTokenCollection {
     }
 
     public boolean isAtEnd() {
-        return peek().getType() == JSnowTokenType.EOF;
+        return peek().type == JSnowTokenType.EOF;
     }
 
     public JSnowToken peek() {
@@ -39,7 +39,7 @@ public class JSnowTokenCollection {
 
         JSnowToken token = peek();
         for (JSnowTokenType type : types) {
-            if (token.getType() == type) {
+            if (token.type == type) {
                 silentAdvance();
                 return true;
             }

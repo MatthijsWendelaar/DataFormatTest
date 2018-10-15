@@ -44,7 +44,7 @@ public class JSnowParser {
     private String parseKey(JSnowObject parent) throws JSnowException {
         check(collection.match(STRING), "Node must start with string literal as key");
 
-        String stringKey = (String) collection.peekPrevious().getLiteral();
+        String stringKey = (String) collection.peekPrevious().literal;
         if (parent.containsKey(stringKey)) {
             throw new JSnowException("Duplicate keys are not allowed");
         }
@@ -55,9 +55,9 @@ public class JSnowParser {
     private Object parseNode() throws JSnowException {
         JSnowToken value = collection.advance();
         Object node;
-        switch (value.getType()) {
+        switch (value.type) {
             case NULL: case TRUE: case FALSE: case NUMBER: case STRING:
-                node = value.getLiteral();
+                node = value.literal;
                 break;
             case LEFT_BRACE:
                 node = parseObject();
@@ -66,7 +66,7 @@ public class JSnowParser {
                 node = parseArray();
                 break;
             default:
-                throw new JSnowException("Unexpected value '" + value.getLiteral() + "' for node");
+                throw new JSnowException("Unexpected value '" + value.literal + "' for node");
         }
         return node;
     }

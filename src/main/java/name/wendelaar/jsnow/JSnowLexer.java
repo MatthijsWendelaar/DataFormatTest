@@ -28,10 +28,6 @@ public class JSnowLexer {
         return tokens;
     }
 
-    public List<JSnowToken> getTokens() {
-        return tokens;
-    }
-
     private void scanToken(char c) throws JSnowException {
         switch (c) {
             case '{': addToken(LEFT_BRACE); break;
@@ -44,19 +40,19 @@ public class JSnowLexer {
             case ':': addToken(COLON); break;
             case ' ': case '\r': case '\t': case '\n': break;
             case '"':
-                while (!isAtEnd() && peek() != '"') advance();
+                while (!isAtEnd() && peek() != '"') silentAdvance();
 
-                if (isAtEnd()); //add error;
+                if (isAtEnd()) throw new JSnowException("Not closed string literal!");
 
                 addToken(STRING, jsonString.substring(start + 1, current));
-                advance();
+                silentAdvance();
                 break;
             default:
                 if (isDigit(c)) {
                     number();
                     return;
                 } else if (isAlpha(c)) {
-                    while (!isAtEnd() && isAlpha(peek())) advance();
+                    while (!isAtEnd() && isAlpha(peek())) silentAdvance();
 
                     String literal = jsonString.substring(start, current);
 
@@ -109,5 +105,9 @@ public class JSnowLexer {
     private char advance() {
         if (isAtEnd()) return '\0';
         return jsonString.charAt(current++);
+    }
+
+    private void silentAdvance() {
+        if (!isAtEnd()) ++current;
     }
 }
